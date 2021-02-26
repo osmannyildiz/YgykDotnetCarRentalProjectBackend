@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory {
@@ -12,7 +13,8 @@ namespace DataAccess.Concrete.InMemory {
         public InMemoryBrandDal() {
             _brands = new List<Brand> {
                 new Brand {Id=1, Name="Hyundai"},
-                new Brand {Id=1, Name="Volkswagen"}
+                new Brand {Id=2, Name="Volkswagen"},
+                new Brand {Id=3, Name="Toyota"}
             };
         }
 
@@ -25,12 +27,16 @@ namespace DataAccess.Concrete.InMemory {
             _brands.Remove(brandToDelete);
         }
 
-        public List<Brand> GetAll() {
-            return _brands;
+        public Brand Get(Expression<Func<Brand, bool>> filter) {
+            return _brands.SingleOrDefault(filter.Compile());
         }
 
-        public Brand GetById(int id) {
-            return _brands.SingleOrDefault(b => b.Id == id);
+        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null) {
+            if (filter == null) {
+                return _brands;
+            } else {
+                return _brands.Where(filter.Compile()).ToList();
+            }
         }
 
         public void Update(Brand brand) {

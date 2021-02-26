@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Abstract {
-    public interface ICarService {
-        List<Car> GetAll();
-        void Add(Car car);
+    public interface ICarService : IEntityService<Car> {
+        List<Car> GetByBrandId(int brandId);
+        List<Car> GetByColorId(int colorId);
     }
 }

@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.Abstract {
-    public interface IBrandDal {
-        Brand GetById(int id);
-        List<Brand> GetAll();
-        void Add(Brand brand);
-        void Update(Brand brand);
-        void Delete(Brand brand);
+    public interface IBrandDal : IEntityRepository<Brand> {
     }
 }
