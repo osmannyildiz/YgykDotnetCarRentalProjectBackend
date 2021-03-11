@@ -1,10 +1,11 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework {
-    public class EfColorDal : EfEntityRepository<Color>, IColorDal {
+    public class EfColorDal : EfEntityRepositoryBase<Color, YgykCarRentalProjectContext>, IColorDal {
     }
 }
