@@ -10,18 +10,35 @@ namespace ConsoleUi {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             CarManager carManager = new CarManager(new EfCarDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            UserManager userManager = new UserManager(new EfUserDal());
 
-            //AddInitialValuesToDb(brandManager, carManager, colorManager);
-            //carManager.Add();
+            //AddInitialValuesToDb(brandManager, carManager, colorManager, customerManager, rentalManager, userManager);
 
-            foreach (var car in carManager.GetCarsDetails()) {
-                Console.WriteLine("{0} {1} ({2}) - Günlük {3:F2} TL", car.BrandName, car.Name, car.ColorName, car.DailyPrice);
+            var result = carManager.GetCarsDetails();
+            if (result.Success) {
+                foreach (var car in result.Data) {
+                    Console.WriteLine("{0} {1} ({2}) - Günlük {3:F2} TL", car.BrandName, car.Name, car.ColorName, car.DailyPrice);
+                }
             }
 
-            
+            var result2 = rentalManager.Add(new Rental { CarId = 3, CustomerId = 1, RentDate = new DateTime(2021, 3, 14) });
+            Console.WriteLine(result2.Message);  // Success
+            var result3 = rentalManager.Add(new Rental { CarId = 3, CustomerId = 2, RentDate = new DateTime(2021, 3, 14) });
+            Console.WriteLine(result3.Message);  // Error
+
+
         }
 
-        private static void AddInitialValuesToDb(BrandManager brandManager, CarManager carManager, ColorManager colorManager) {
+        private static void AddInitialValuesToDb(
+            BrandManager brandManager, 
+            CarManager carManager, 
+            ColorManager colorManager, 
+            CustomerManager customerManager, 
+            RentalManager rentalManager, 
+            UserManager userManager
+        ) {
             var brands = new List<Brand> {
                 new Brand {Name="Hyundai"},
                 new Brand {Name="Volkswagen"},
@@ -48,6 +65,30 @@ namespace ConsoleUi {
             };
             foreach (var car in cars) {
                 carManager.Add(car);
+            }
+
+            var users = new List<User> {
+                new User {Id=1, FirstName="Engin", LastName="Demiroğ", Email="admin@kodlama.io", Password="cigkofte21"},
+                new User {Id=2, FirstName="Osman Nuri", LastName="Yıldız", Email="iamosmannyildiz@gmail.com", Password="12ab34cd"}
+            };
+            foreach (var user in users) {
+                userManager.Add(user);
+            }
+
+            var customers = new List<Customer> {
+                new Customer {Id=1, UserId=1, CompanyName="Kodlama.io"},
+                new Customer {Id=2, UserId=2, CompanyName="KTO Karatay Üniversitesi"}
+            };
+            foreach (var customer in customers) {
+                customerManager.Add(customer);
+            }
+
+            var rentals = new List<Rental> {
+                new Rental {Id=1, CarId=2, CustomerId=2, RentDate=new DateTime(2021, 3, 5), ReturnDate=new DateTime(2021, 3, 7)},
+                new Rental {Id=2, CarId=2, CustomerId=2, RentDate=new DateTime(2021, 3, 13)}
+            };
+            foreach (var rental in rentals) {
+                rentalManager.Add(rental);
             }
         }
     }

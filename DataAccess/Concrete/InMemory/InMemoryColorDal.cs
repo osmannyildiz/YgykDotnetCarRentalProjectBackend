@@ -18,12 +18,12 @@ namespace DataAccess.Concrete.InMemory {
             };
         }
 
-        public void Add(Color color) {
-            _colors.Add(color);
+        public void Add(Color entity) {
+            _colors.Add(entity);
         }
 
-        public void Delete(Color color) {
-            Color colorToDelete = _colors.SingleOrDefault(c => c.Id == color.Id);
+        public void Delete(Color entity) {
+            Color colorToDelete = _colors.SingleOrDefault(c => c.Id == entity.Id);
             _colors.Remove(colorToDelete);
         }
 
@@ -39,10 +39,10 @@ namespace DataAccess.Concrete.InMemory {
             }
         }
 
-        public void Update(Color color) {
-            Color colorToUpdate = _colors.SingleOrDefault(b => b.Id == color.Id);
-            colorToUpdate.Id = color.Id;
-            colorToUpdate.Name = color.Name;
+        public void Update(Color entity) {
+            Color colorToUpdate = _colors.SingleOrDefault(b => b.Id == entity.Id);
+            colorToUpdate.Id = entity.Id;
+            colorToUpdate.Name = entity.Name;
         }
     }
 }

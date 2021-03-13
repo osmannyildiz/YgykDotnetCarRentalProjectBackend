@@ -19,12 +19,12 @@ namespace DataAccess.Concrete.InMemory {
             };
         }
 
-        public void Add(Car car) {
-            _cars.Add(car);
+        public void Add(Car entity) {
+            _cars.Add(entity);
         }
 
-        public void Delete(Car car) {
-            Car carToDelete = _cars.SingleOrDefault(c => c.Id == car.Id);
+        public void Delete(Car entity) {
+            Car carToDelete = _cars.SingleOrDefault(c => c.Id == entity.Id);
             _cars.Remove(carToDelete);
         }
 
@@ -44,13 +44,14 @@ namespace DataAccess.Concrete.InMemory {
             throw new NotImplementedException();
         }
 
-        public void Update(Car car) {
-            Car carToUpdate = _cars.SingleOrDefault(c => c.Id == car.Id);
-            carToUpdate.BrandId = car.BrandId;
-            carToUpdate.ColorId = car.ColorId;
-            carToUpdate.ModelYear = car.ModelYear;
-            carToUpdate.DailyPrice = car.DailyPrice;
-            carToUpdate.Description = car.Description;
+        public void Update(Car entity) {
+            Car carToUpdate = _cars.SingleOrDefault(c => c.Id == entity.Id);
+            carToUpdate.BrandId = entity.BrandId;
+            carToUpdate.ColorId = entity.ColorId;
+            carToUpdate.Name = entity.Name;
+            carToUpdate.ModelYear = entity.ModelYear;
+            carToUpdate.DailyPrice = entity.DailyPrice;
+            carToUpdate.Description = entity.Description;
         }
     }
 }

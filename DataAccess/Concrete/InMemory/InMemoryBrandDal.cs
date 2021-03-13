@@ -18,12 +18,12 @@ namespace DataAccess.Concrete.InMemory {
             };
         }
 
-        public void Add(Brand brand) {
-            _brands.Add(brand);
+        public void Add(Brand entity) {
+            _brands.Add(entity);
         }
 
-        public void Delete(Brand brand) {
-            Brand brandToDelete = _brands.SingleOrDefault(b => b.Id == brand.Id);
+        public void Delete(Brand entity) {
+            Brand brandToDelete = _brands.SingleOrDefault(b => b.Id == entity.Id);
             _brands.Remove(brandToDelete);
         }
 
@@ -39,10 +39,10 @@ namespace DataAccess.Concrete.InMemory {
             }
         }
 
-        public void Update(Brand brand) {
-            Brand brandToUpdate = _brands.SingleOrDefault(b => b.Id == brand.Id);
-            brandToUpdate.Id = brand.Id;
-            brandToUpdate.Name = brand.Name;
+        public void Update(Brand entity) {
+            Brand brandToUpdate = _brands.SingleOrDefault(b => b.Id == entity.Id);
+            brandToUpdate.Id = entity.Id;
+            brandToUpdate.Name = entity.Name;
         }
     }
 }
