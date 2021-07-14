@@ -10,8 +10,6 @@ namespace Business.Constants {
         public static string CarAdded = "Araba eklendi.";
         public static string CarDeleted = "Araba silindi.";
         public static string CarUpdated = "Araba güncellendi.";
-        public static string CarDescriptionMustBeAtLeastTwoCharactersLong = "Araba açıklaması en az 2 karakter uzunluğunda olmalıdır";
-        public static string CarDailyPriceMustBeBiggerThanZero = "Araba günlük fiyatı 0'dan büyük olmalıdır";
         public static string ColorAdded = "Renk eklendi.";
         public static string ColorDeleted = "Renk silindi.";
         public static string ColorUpdated = "Renk güncellendi.";
@@ -22,8 +20,10 @@ namespace Business.Constants {
         public static string RentalDeleted = "Kiralama silindi.";
         public static string RentalUpdated = "Kiralama güncellendi.";
         public static string RentedCarNotReturnedYet = "Seçtiğiniz araba başkası tarafından kiralanmış ve henüz iade edilmemiş.";
+        public static string RentalReturnDateMustNotBeBeforeRentDate = "İade tarihi, kiralama tarihinden önce olmamalıdır.";
         public static string UserAdded = "Kullanıcı eklendi.";
         public static string UserDeleted = "Kullanıcı silindi.";
         public static string UserUpdated = "Kullanıcı güncellendi.";
+        public static string UserPasswordMustContainTheseTypesOfCharacters = "Şifre küçük harf, büyük harf ve rakam karakterlerinden en az birer tane içermelidir.";
     }
 }

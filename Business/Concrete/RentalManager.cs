@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -16,17 +18,24 @@ namespace Business.Concrete {
             _rentalDal = rentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental entity) {
-            // Seçilen arabanın kiralandığı ama iade edilme tarihinin boş olduğu durumu sorguluyoruz
+            // Seçilen arabanın kiralandığı ve henüz iade edilmediği durum
             var result = _rentalDal.Get(r => r.CarId == entity.CarId && r.ReturnDate == DateTime.MinValue);
             if (result != null) {
                 return new ErrorResult(Messages.RentedCarNotReturnedYet);
-            } else {
-                _rentalDal.Add(entity);
-                return new SuccessResult(Messages.RentalAdded);
             }
+
+            // İade tarihinin kiralama tarihinden önce olduğu durum
+            if (entity.ReturnDate.Subtract(entity.RentDate).TotalDays < 0) {
+                return new ErrorResult(Messages.RentalReturnDateMustNotBeBeforeRentDate);
+            }
+            
+            _rentalDal.Add(entity);
+            return new SuccessResult(Messages.RentalAdded);
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Delete(Rental entity) {
             _rentalDal.Delete(entity);
             return new SuccessResult(Messages.RentalDeleted);
@@ -40,6 +49,7 @@ namespace Business.Concrete {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(filter));
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental entity) {
             _rentalDal.Update(entity);
             return new SuccessResult(Messages.RentalUpdated);
