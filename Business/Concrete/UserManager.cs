@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,9 +22,11 @@ namespace Business.Concrete {
 
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User entity) {
-            // Şifrenin küçük harf, büyük harf ve rakamlardan en az birer adet içermediği durum
-            if (!(entity.Password.Any(char.IsLower) && entity.Password.Any(char.IsUpper) && entity.Password.Any(char.IsDigit))) {
-                return new ErrorResult(Messages.UserPasswordMustContainTheseTypesOfCharacters);
+            var errorResult = BusinessEngine.Run(
+                CheckIfPasswordDoesNotContainVarietyOfCharacters(entity.Password)
+            );
+            if (errorResult != null) {
+                return errorResult;
             }
 
             _userDal.Add(entity);
@@ -48,6 +51,13 @@ namespace Business.Concrete {
         public IResult Update(User entity) {
             _userDal.Update(entity);
             return new SuccessResult(Messages.UserUpdated);
+        }
+
+        private IResult CheckIfPasswordDoesNotContainVarietyOfCharacters(string password) {
+            if (!(password.Any(char.IsLower) && password.Any(char.IsUpper) && password.Any(char.IsDigit))) {
+                return new ErrorResult(Messages.PasswordDoesNotContainVarietyOfCharacters);
+            }
+            return new SuccessResult();
         }
     }
 }

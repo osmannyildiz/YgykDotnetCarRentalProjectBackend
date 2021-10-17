@@ -20,10 +20,10 @@ namespace Business.Constants {
         public static string RentalDeleted = "Kiralama silindi.";
         public static string RentalUpdated = "Kiralama güncellendi.";
         public static string RentedCarNotReturnedYet = "Seçtiğiniz araba başkası tarafından kiralanmış ve henüz iade edilmemiş.";
-        public static string RentalReturnDateMustNotBeBeforeRentDate = "İade tarihi, kiralama tarihinden önce olmamalıdır.";
+        public static string RentalReturnDateIsBeforeRentDate = "İade tarihi, kiralama tarihinden önce olamaz.";
         public static string UserAdded = "Kullanıcı eklendi.";
         public static string UserDeleted = "Kullanıcı silindi.";
         public static string UserUpdated = "Kullanıcı güncellendi.";
-        public static string UserPasswordMustContainTheseTypesOfCharacters = "Şifre küçük harf, büyük harf ve rakam karakterlerinden en az birer tane içermelidir.";
+        public static string PasswordDoesNotContainVarietyOfCharacters = "Şifre küçük harf, büyük harf ve rakam karakterlerinden en az birer tane içermelidir.";
     }
 }

@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,17 +21,14 @@ namespace Business.Concrete {
 
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental entity) {
-            // Seçilen arabanın kiralandığı ve henüz iade edilmediği durum
-            var result = _rentalDal.Get(r => r.CarId == entity.CarId && r.ReturnDate == DateTime.MinValue);
-            if (result != null) {
-                return new ErrorResult(Messages.RentedCarNotReturnedYet);
+            var errorResult = BusinessEngine.Run(
+                CheckIfRentedCarNotReturnedYet(entity),
+                CheckIfRentalReturnDateIsBeforeRentDate(entity)
+            );
+            if (errorResult != null) {
+                return errorResult;
             }
 
-            // İade tarihinin kiralama tarihinden önce olduğu durum
-            if (entity.ReturnDate.Subtract(entity.RentDate).TotalDays < 0) {
-                return new ErrorResult(Messages.RentalReturnDateMustNotBeBeforeRentDate);
-            }
-            
             _rentalDal.Add(entity);
             return new SuccessResult(Messages.RentalAdded);
         }
@@ -53,6 +51,21 @@ namespace Business.Concrete {
         public IResult Update(Rental entity) {
             _rentalDal.Update(entity);
             return new SuccessResult(Messages.RentalUpdated);
+        }
+
+        private IResult CheckIfRentedCarNotReturnedYet(Rental rental) {
+            var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate == DateTime.MinValue);
+            if (result != null) {
+                return new ErrorResult(Messages.RentedCarNotReturnedYet);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfRentalReturnDateIsBeforeRentDate(Rental rental) {
+            if (rental.ReturnDate.Subtract(rental.RentDate).TotalDays < 0) {
+                return new ErrorResult(Messages.RentalReturnDateIsBeforeRentDate);
+            }
+            return new SuccessResult();
         }
     }
 }
