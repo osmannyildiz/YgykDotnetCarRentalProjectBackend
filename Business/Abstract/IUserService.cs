@@ -4,6 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Abstract {
-    public interface IUserService : IEntityService<User> {
+    public interface IUserService : IEntityService<User, User, User> {
     }
 }

@@ -25,5 +25,10 @@ namespace Business.Constants {
         public static string UserDeleted = "Kullanıcı silindi.";
         public static string UserUpdated = "Kullanıcı güncellendi.";
         public static string PasswordDoesNotContainVarietyOfCharacters = "Şifre küçük harf, büyük harf ve rakam karakterlerinden en az birer tane içermelidir.";
+        public static string CarImageAdded = "Araba resmi eklendi.";
+        public static string CarImageDeleted = "Araba resmi silindi.";
+        public static string CarImageUpdated = "Araba resmi güncellendi.";
+        public static string CarHasMaxCountOfImages = $"Bir arabanın en fazla {Values.MaxCountOfImagesPerCar} resmi olabilir.";
+        public static string NotFound = "Belirtilen içerik bulunamadı.";
     }
 }

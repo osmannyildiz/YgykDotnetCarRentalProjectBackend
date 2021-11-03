@@ -4,6 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Abstract {
-    public interface IRentalService : IEntityService<Rental> {
+    public interface IRentalService : IEntityService<Rental, Rental, Rental> {
     }
 }

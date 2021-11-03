@@ -4,6 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Abstract {
-    public interface IColorService : IEntityService<Color> {
+    public interface IColorService : IEntityService<Color, Color, Color> {
     }
 }

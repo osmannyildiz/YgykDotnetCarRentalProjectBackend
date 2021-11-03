@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entities.Dto {
+namespace Entities.Dtos {
     public class CarDetailDto : IDto {
         public string Name { get; set; }
         public string BrandName { get; set; }
