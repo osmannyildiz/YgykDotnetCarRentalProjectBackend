@@ -26,6 +26,7 @@ namespace WebApi.Controllers {
                 return BadRequest(result);
             }
 
+            // Business rule in controller??
             if (result.Data.Count == 0) {
                 result.Data.Add(new CarImage {
                     CarId = carId,
