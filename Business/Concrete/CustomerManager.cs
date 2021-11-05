@@ -19,28 +19,28 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
-        public IResult Add(Customer entity) {
-            _customerDal.Add(entity);
+        public IResult Add(Customer customer) {
+            _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
-        public IResult Delete(Customer entity) {
-            _customerDal.Delete(entity);
+        public IResult Delete(Customer customer) {
+            _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
 
-        public IDataResult<Customer> Get(Expression<Func<Customer, bool>> filter) {
-            return new SuccessDataResult<Customer>(_customerDal.Get(filter));
+        public IDataResult<List<Customer>> GetAll() {
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
 
-        public IDataResult<List<Customer>> GetAll(Expression<Func<Customer, bool>> filter = null) {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(filter));
+        public IDataResult<Customer> GetById(int id) {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id));
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
-        public IResult Update(Customer entity) {
-            _customerDal.Update(entity);
+        public IResult Update(Customer customer) {
+            _customerDal.Update(customer);
             return new SuccessResult(Messages.CustomerUpdated);
         }
     }

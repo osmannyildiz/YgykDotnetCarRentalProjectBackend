@@ -20,40 +20,40 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public IResult Add(Car entity) {
-            _carDal.Add(entity);
+        public IResult Add(Car car) {
+            _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public IResult Delete(Car entity) {
-            _carDal.Delete(entity);
+        public IResult Delete(Car car) {
+            _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
 
-        public IDataResult<Car> Get(Expression<Func<Car, bool>> filter) {
-            return new SuccessDataResult<Car>(_carDal.Get(filter));
+        public IDataResult<List<Car>> GetAll() {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public IDataResult<List<Car>> GetAll(Expression<Func<Car, bool>> filter = null) {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(filter));
-        }
-
-        public IDataResult<List<Car>> GetByBrandId(int brandId) {
+        public IDataResult<List<Car>> GetAllByBrandId(int brandId) {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
         }
 
-        public IDataResult<List<Car>> GetByColorId(int colorId) {
+        public IDataResult<List<Car>> GetAllByColorId(int colorId) {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarsDetails() {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsDetails());
+        public IDataResult<List<CarDetailDto>> GetAllCarDetails() {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails());
+        }
+
+        public IDataResult<Car> GetById(int id) {
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public IResult Update(Car entity) {
-            _carDal.Update(entity);
+        public IResult Update(Car car) {
+            _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
     }

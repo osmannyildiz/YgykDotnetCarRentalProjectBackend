@@ -7,6 +7,6 @@ using System.Text;
 
 namespace DataAccess.Abstract {
     public interface ICarDal : IEntityRepository<Car> {
-        List<CarDetailDto> GetCarsDetails();
+        List<CarDetailDto> GetAllCarDetails();
     }
 }

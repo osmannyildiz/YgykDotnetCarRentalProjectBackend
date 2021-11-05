@@ -21,35 +21,35 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(UserValidator))]
-        public IResult Add(User entity) {
+        public IResult Add(User user) {
             var errorResult = BusinessEngine.Run(
-                CheckIfPasswordDoesNotContainVarietyOfCharacters(entity.Password)
+                CheckIfPasswordDoesNotContainVarietyOfCharacters(user.Password)
             );
             if (errorResult != null) {
                 return errorResult;
             }
 
-            _userDal.Add(entity);
+            _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
 
         [ValidationAspect(typeof(UserValidator))]
-        public IResult Delete(User entity) {
-            _userDal.Delete(entity);
+        public IResult Delete(User user) {
+            _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
 
-        public IDataResult<User> Get(Expression<Func<User, bool>> filter) {
-            return new SuccessDataResult<User>(_userDal.Get(filter));
+        public IDataResult<List<User>> GetAll() {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
-        public IDataResult<List<User>> GetAll(Expression<Func<User, bool>> filter = null) {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(filter));
+        public IDataResult<User> GetById(int id) {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
         }
 
         [ValidationAspect(typeof(UserValidator))]
-        public IResult Update(User entity) {
-            _userDal.Update(entity);
+        public IResult Update(User user) {
+            _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
 

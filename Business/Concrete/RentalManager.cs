@@ -20,36 +20,36 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public IResult Add(Rental entity) {
+        public IResult Add(Rental rental) {
             var errorResult = BusinessEngine.Run(
-                CheckIfRentedCarNotReturnedYet(entity),
-                CheckIfRentalReturnDateIsBeforeRentDate(entity)
+                CheckIfRentedCarNotReturnedYet(rental),
+                CheckIfRentalReturnDateIsBeforeRentDate(rental)
             );
             if (errorResult != null) {
                 return errorResult;
             }
 
-            _rentalDal.Add(entity);
+            _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public IResult Delete(Rental entity) {
-            _rentalDal.Delete(entity);
+        public IResult Delete(Rental rental) {
+            _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
         }
 
-        public IDataResult<Rental> Get(Expression<Func<Rental, bool>> filter) {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(filter));
+        public IDataResult<List<Rental>> GetAll() {
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
-        public IDataResult<List<Rental>> GetAll(Expression<Func<Rental, bool>> filter = null) {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(filter));
+        public IDataResult<Rental> GetById(int id) {
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public IResult Update(Rental entity) {
-            _rentalDal.Update(entity);
+        public IResult Update(Rental rental) {
+            _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }
 

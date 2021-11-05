@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DataAccess.Concrete.EntityFramework {
     public class EfCarDal : EfEntityRepositoryBase<Car, YgykCarRentalProjectContext>, ICarDal {
-        public List<CarDetailDto> GetCarsDetails() {
+        public List<CarDetailDto> GetAllCarDetails() {
             using (YgykCarRentalProjectContext context = new YgykCarRentalProjectContext()) {
                 var result = from ca in context.Cars
                              join br in context.Brands

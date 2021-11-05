@@ -6,9 +6,14 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Abstract {
-    public interface ICarService : IEntityService<Car, Car, Car> {
-        IDataResult<List<Car>> GetByBrandId(int brandId);
-        IDataResult<List<Car>> GetByColorId(int colorId);
-        IDataResult<List<CarDetailDto>> GetCarsDetails();
+    public interface ICarService {
+        IDataResult<List<Car>> GetAll();
+        IDataResult<List<Car>> GetAllByBrandId(int brandId);
+        IDataResult<List<Car>> GetAllByColorId(int colorId);
+        IDataResult<Car> GetById(int id);
+        IResult Add(Car car);
+        IResult Update(Car car);
+        IResult Delete(Car car);
+        IDataResult<List<CarDetailDto>> GetAllCarDetails();
     }
 }

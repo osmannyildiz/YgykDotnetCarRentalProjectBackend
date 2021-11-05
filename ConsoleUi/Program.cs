@@ -17,7 +17,7 @@ namespace ConsoleUi {
 
             //AddInitialValuesToDb(brandManager, carManager, colorManager, customerManager, rentalManager, userManager);
 
-            var result = carManager.GetCarsDetails();
+            var result = carManager.GetAllCarDetails();
             if (result.Success) {
                 foreach (var car in result.Data) {
                     Console.WriteLine("{0} {1} ({2}) - Günlük {3:F2} TL", car.BrandName, car.Name, car.ColorName, car.DailyPrice);

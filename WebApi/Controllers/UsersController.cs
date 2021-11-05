@@ -29,7 +29,7 @@ namespace WebApi.Controllers {
 
         [HttpGet("getById")]
         public IActionResult GetById(int id) {
-            var result = _userService.Get(u => u.Id == id);
+            var result = _userService.GetById(id);
             if (result.Success) {
                 return Ok(result);
             } else {
@@ -59,7 +59,7 @@ namespace WebApi.Controllers {
 
         [HttpDelete("deleteById")]
         public IActionResult DeleteById(int id) {
-            var result1 = _userService.Get(u => u.Id == id);
+            var result1 = _userService.GetById(id);
             var user = result1.Data;
             if (!result1.Success || user == null) {
                 return BadRequest(result1);

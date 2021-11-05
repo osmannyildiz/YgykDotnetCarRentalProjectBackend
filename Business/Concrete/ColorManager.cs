@@ -19,28 +19,28 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(ColorValidator))]
-        public IResult Add(Color entity) {
-            _colorDal.Add(entity);
+        public IResult Add(Color color) {
+            _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
 
         [ValidationAspect(typeof(ColorValidator))]
-        public IResult Delete(Color entity) {
-            _colorDal.Delete(entity);
+        public IResult Delete(Color color) {
+            _colorDal.Delete(color);
             return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public IDataResult<Color> Get(Expression<Func<Color, bool>> filter) {
-            return new SuccessDataResult<Color>(_colorDal.Get(filter));
+        public IDataResult<List<Color>> GetAll() {
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
-        public IDataResult<List<Color>> GetAll(Expression<Func<Color, bool>> filter = null) {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(filter));
+        public IDataResult<Color> GetById(int id) {
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == id));
         }
 
         [ValidationAspect(typeof(ColorValidator))]
-        public IResult Update(Color entity) {
-            _colorDal.Update(entity);
+        public IResult Update(Color color) {
+            _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);
         }
     }

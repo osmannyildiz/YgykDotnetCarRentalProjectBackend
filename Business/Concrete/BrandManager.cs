@@ -7,7 +7,6 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete {
@@ -19,28 +18,28 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Add(Brand entity) {
-            _brandDal.Add(entity);
+        public IResult Add(Brand brand) {
+            _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
         }
 
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Delete(Brand entity) {
-            _brandDal.Delete(entity);
+        public IResult Delete(Brand brand) {
+            _brandDal.Delete(brand);
             return new SuccessResult(Messages.BrandDeleted);
         }
 
-        public IDataResult<Brand> Get(Expression<Func<Brand, bool>> filter) {
-            return new SuccessDataResult<Brand>(_brandDal.Get(filter));
+        public IDataResult<List<Brand>> GetAll() {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
-        public IDataResult<List<Brand>> GetAll(Expression<Func<Brand, bool>> filter = null) {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(filter));
+        public IDataResult<Brand> GetById(int id) {
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == id));
         }
 
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Update(Brand entity) {
-            _brandDal.Update(entity);
+        public IResult Update(Brand brand) {
+            _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }
     }
