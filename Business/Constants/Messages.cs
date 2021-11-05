@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants {
@@ -30,5 +31,12 @@ namespace Business.Constants {
         public static string CarImageUpdated = "Araba resmi güncellendi.";
         public static string CarHasMaxCountOfImages = $"Bir arabanın en fazla {Values.MaxCountOfImagesPerCar} resmi olabilir.";
         public static string NotFound = "Belirtilen içerik bulunamadı.";
+        public static string AuthorizationDenied = "Bu işlem için yetkiniz yok.";
+        public static string RegisterSuccessful = "Kullanıcı kayıt işlemi başarılı.";
+        public static string LoginSuccessful = "Kullanıcı girişi başarılı.";
+        public static string UserNotFound = "Kullanıcı bulunamadı.";
+        public static string WrongPassword = "Şifre hatalı.";
+        public static string UserWithEmailAlreadyExists = "Bu e-posta adresiyle kayıtlı bir kullanıcı halihazırda mevcut. Lütfen farklı bir e-posta adresi girin.";
+        public static string AccessTokenCreated = "Erişim jetonu oluşturuldu.";
     }
 }

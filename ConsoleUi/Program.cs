@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Core.Entities.Concrete;
+using Core.Entities.Dtos;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
@@ -38,7 +39,8 @@ namespace ConsoleUi {
             ColorManager colorManager, 
             CustomerManager customerManager, 
             RentalManager rentalManager, 
-            UserManager userManager
+            UserManager userManager,
+            AuthManager authManager
         ) {
             var brands = new List<Brand> {
                 new Brand {Name="Hyundai"},
@@ -68,12 +70,12 @@ namespace ConsoleUi {
                 carManager.Add(car);
             }
 
-            var users = new List<User> {
-                new User {Id=1, FirstName="Engin", LastName="Demiroğ", Email="admin@kodlama.io", Password="cigkofte21"},
-                new User {Id=2, FirstName="Osman Nuri", LastName="Yıldız", Email="iamosmannyildiz@gmail.com", Password="12ab34cd"}
+            var users = new List<UserRegisterDto> {
+                new UserRegisterDto {FirstName="Engin", LastName="Demiroğ", Email="admin@kodlama.io", Password="cigkofte21"},
+                new UserRegisterDto {FirstName="Osman Nuri", LastName="Yıldız", Email="iamosmannyildiz@gmail.com", Password="12ab34cd"}
             };
             foreach (var user in users) {
-                userManager.Add(user);
+                authManager.Register(user);
             }
 
             var customers = new List<Customer> {

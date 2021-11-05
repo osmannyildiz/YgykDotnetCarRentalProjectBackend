@@ -21,7 +21,7 @@ namespace WebApi.Controllers {
 
         [HttpGet("getAllByCarId")]
         public IActionResult GetAllByCarId(int carId) {
-            var result = _carImageService.GetAll(ci => ci.CarId == carId);
+            var result = _carImageService.GetAllByCarId(carId);
             if (!result.Success) {
                 return BadRequest(result);
             }
@@ -39,7 +39,7 @@ namespace WebApi.Controllers {
 
         [HttpGet("getById")]
         public IActionResult GetById(int id) {
-            var result = _carImageService.Get(ci => ci.Id == id);
+            var result = _carImageService.GetById(id);
             if (!result.Success) {
                 return BadRequest(result);
             }
@@ -69,7 +69,7 @@ namespace WebApi.Controllers {
 
         [HttpDelete("deleteById")]
         public IActionResult DeleteById(int id) {
-            var result1 = _carImageService.Get(ci => ci.Id == id);
+            var result1 = _carImageService.GetById(id);
             if (!result1.Success) {
                 return BadRequest(result1);
             }

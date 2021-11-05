@@ -18,9 +18,6 @@ namespace Business.ValidationRules.FluentValidation {
             RuleFor(u => u.Email).NotEmpty();
             RuleFor(u => u.Email).Length(5, 255);
             RuleFor(u => u.Email).EmailAddress();
-
-            RuleFor(u => u.Password).NotEmpty();
-            RuleFor(u => u.Password).Length(10, 255);
         }
     }
 }

@@ -6,5 +6,6 @@ using System.Text;
 
 namespace DataAccess.Abstract {
     public interface IUserDal : IEntityRepository<User> {
+        List<OperationClaim> GetOperationClaims(User user);
     }
 }
