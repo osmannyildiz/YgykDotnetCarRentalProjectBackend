@@ -23,7 +23,7 @@ namespace Business.Concrete {
             _tokenHelper = tokenHelper;
         }
 
-        // TODO Password constraints (min length etc.)
+        // TODO Password constraints (min length, etc.)
         [ValidationAspect(typeof(UserRegisterDtoValidator))]
         public IDataResult<User> Register(UserRegisterDto userRegisterDto) {
             var errorResult = BusinessEngine.Run(

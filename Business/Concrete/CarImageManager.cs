@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.FileSystem;
 using Core.Utilities.Results;
@@ -21,6 +22,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CarImageAddDtoValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImageAddDto carImageAddDto) {
             var result1 = GetAllByCarId(carImageAddDto.CarId);
             if (result1.Data != null && result1.Data.Count >= Values.MaxCountOfImagesPerCar) {
@@ -41,25 +43,30 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage) {
             FileSystemTool.DeleteFileIfExists(carImage.ImageFilePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.CarImageDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAll() {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAllByCarId(int carId) {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(ci => ci.CarId == carId));
         }
 
+        [CacheAspect]
         public IDataResult<CarImage> GetById(int id) {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(ci => ci.Id == id));
         }
 
         //[ValidationAspect(typeof(CarImageUpdateDtoValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(CarImageUpdateDto carImageUpdateDto) {
             var result1 = GetById(carImageUpdateDto.Id);
             if (!result1.Success || result1.Data == null) {
