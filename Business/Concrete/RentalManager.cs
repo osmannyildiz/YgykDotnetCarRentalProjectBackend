@@ -7,6 +7,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -48,6 +49,11 @@ namespace Business.Concrete {
         }
 
         [CacheAspect]
+        public IDataResult<List<RentalDetailDto>> GetAllRentalDetails() {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetAllRentalDetails());
+        }
+
+        [CacheAspect]
         public IDataResult<Rental> GetById(int id) {
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
         }
@@ -60,7 +66,10 @@ namespace Business.Concrete {
         }
 
         private IResult CheckIfRentedCarNotReturnedYet(Rental rental) {
-            var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate == DateTime.MinValue);
+            // DateTime.CompareTo() reference: https://docs.microsoft.com/en-us/dotnet/api/system.datetime.compareto?view=net-6.0
+
+            // Return date should be earlier or today
+            var result = _rentalDal.Get(r => r.CarId == rental.CarId && r.ReturnDate.CompareTo(DateTime.Today) <= 0);
             if (result != null) {
                 return new ErrorResult(Messages.RentedCarNotReturnedYet);
             }

@@ -34,6 +34,8 @@ namespace WebApi {
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
 
+            services.AddCors();
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
@@ -59,6 +61,10 @@ namespace WebApi {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => {
+                builder.WithOrigins("http://localhost:4200", "http://localhost:4201").AllowAnyHeader();
+            });
 
             app.UseHttpsRedirection();
 

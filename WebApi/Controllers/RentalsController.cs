@@ -27,6 +27,16 @@ namespace WebApi.Controllers {
             }
         }
 
+        [HttpGet("getAllRentalDetails")]
+        public IActionResult GetAllRentalDetails() {
+            var result = _rentalService.GetAllRentalDetails();
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
         [HttpGet("getById")]
         public IActionResult GetById(int id) {
             var result = _rentalService.GetById(id);

@@ -27,6 +27,16 @@ namespace WebApi.Controllers {
             }
         }
 
+        [HttpGet("getAllCarDetails")]
+        public IActionResult GetAllCarDetails() {
+            var result = _carService.GetAllCarDetails();
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
         [HttpGet("getById")]
         public IActionResult GetById(int id) {
             var result = _carService.GetById(id);
