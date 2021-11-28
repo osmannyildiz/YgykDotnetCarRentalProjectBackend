@@ -20,8 +20,8 @@ namespace ConsoleUi {
 
             var result = carManager.GetAllCarDetails();
             if (result.Success) {
-                foreach (var car in result.Data) {
-                    Console.WriteLine("{0} {1} ({2}) - Günlük {3:F2} TL", car.BrandName, car.Name, car.ColorName, car.DailyPrice);
+                foreach (var carDetail in result.Data) {
+                    Console.WriteLine("{0} {1} ({2}) - Günlük {3:F2} TL", carDetail.BrandName, carDetail.CarName, carDetail.ColorName, carDetail.CarDailyPrice);
                 }
             }
 

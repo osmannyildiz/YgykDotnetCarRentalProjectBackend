@@ -31,8 +31,8 @@ namespace Business.Concrete {
 
             // TODO Do file validation
             // TODO Detect file extension better, instead of relying on file name
-            string imageFilePath = "Files/CarImages/" + Guid.NewGuid().ToString() + Path.GetExtension(carImageAddDto.ImageFile.FileName);
-            FileSystemTool.SaveFormFile(carImageAddDto.ImageFile, imageFilePath);
+            string imageFilePath = "/CarImages/" + Guid.NewGuid().ToString() + Path.GetExtension(carImageAddDto.ImageFile.FileName);
+            FileSystemTool.SaveFormFile(carImageAddDto.ImageFile, "wwwroot" + imageFilePath);
             var entity = new CarImage {
                 CarId = carImageAddDto.CarId,
                 ImageFilePath = imageFilePath,
@@ -45,7 +45,7 @@ namespace Business.Concrete {
         [ValidationAspect(typeof(CarImageValidator))]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage) {
-            FileSystemTool.DeleteFileIfExists(carImage.ImageFilePath);
+            FileSystemTool.DeleteFileIfExists("wwwroot" + carImage.ImageFilePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.CarImageDeleted);
         }
@@ -77,8 +77,8 @@ namespace Business.Concrete {
             FileSystemTool.DeleteFileIfExists(carImage.ImageFilePath);
             // TODO Do file validation
             // TODO Detect file extension better, instead of relying on file name
-            string imageFilePath = "Files/CarImages/" + Guid.NewGuid().ToString() + Path.GetExtension(carImageUpdateDto.ImageFile.FileName);
-            FileSystemTool.SaveFormFile(carImageUpdateDto.ImageFile, imageFilePath);
+            string imageFilePath = "/CarImages/" + Guid.NewGuid().ToString() + Path.GetExtension(carImageUpdateDto.ImageFile.FileName);
+            FileSystemTool.SaveFormFile(carImageUpdateDto.ImageFile, "wwwroot" + imageFilePath);
             carImage.ImageFilePath = imageFilePath;
 
             _carImageDal.Update(carImage);

@@ -37,9 +37,39 @@ namespace WebApi.Controllers {
             }
         }
 
+        [HttpGet("getAllCarDetailsByBrandId")]
+        public IActionResult GetAllCarDetailsByBrandId(int brandId) {
+            var result = _carService.GetAllCarDetailsByBrandId(brandId);
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("getAllCarDetailsByColorId")]
+        public IActionResult GetAllCarDetailsByColorId(int colorId) {
+            var result = _carService.GetAllCarDetailsByColorId(colorId);
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
         [HttpGet("getById")]
         public IActionResult GetById(int id) {
             var result = _carService.GetById(id);
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("getCarDetailByCarId")]
+        public IActionResult GetCarDetailByCarId(int carId) {
+            var result = _carService.GetCarDetailByCarId(carId);
             if (result.Success) {
                 return Ok(result);
             } else {

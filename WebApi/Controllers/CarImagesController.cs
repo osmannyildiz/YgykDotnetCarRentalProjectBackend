@@ -30,7 +30,7 @@ namespace WebApi.Controllers {
             if (result.Data.Count == 0) {
                 result.Data.Add(new CarImage {
                     CarId = carId,
-                    ImageFilePath = "Files/CarImages/no-image.png"
+                    ImageFilePath = "/CarImages/no-image.png"
                 });
             }
             
