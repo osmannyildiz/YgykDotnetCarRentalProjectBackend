@@ -20,7 +20,7 @@ namespace Business.Constants {
         public static string RentalAdded = "Kiralama eklendi.";
         public static string RentalDeleted = "Kiralama silindi.";
         public static string RentalUpdated = "Kiralama güncellendi.";
-        public static string RentedCarNotReturnedYet = "Seçtiğiniz araba başkası tarafından kiralanmış ve henüz iade edilmemiş.";
+        public static string CarAlreadyRentedInSpecifiedDate = "Seçtiğiniz araba belirttiğiniz tarihlerde halihazırda kiralanmış.";
         public static string RentalReturnDateIsBeforeRentDate = "İade tarihi, kiralama tarihinden önce olamaz.";
         public static string UserAdded = "Kullanıcı eklendi.";
         public static string UserDeleted = "Kullanıcı silindi.";
@@ -38,5 +38,6 @@ namespace Business.Constants {
         public static string WrongPassword = "Şifre hatalı.";
         public static string UserWithEmailAlreadyExists = "Bu e-posta adresiyle kayıtlı bir kullanıcı halihazırda mevcut. Lütfen farklı bir e-posta adresi girin.";
         public static string AccessTokenCreated = "Erişim jetonu oluşturuldu.";
+        public static string PaymentSuccessful = "Ödeme işlemi başarılı.";
     }
 }
