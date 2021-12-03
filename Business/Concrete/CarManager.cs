@@ -21,14 +21,14 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        [CacheRemoveAspect("ICarService.Get")]
+        [CacheRemoveAspect("ICarService.Get", "IRentalService.GetAllRentalDetails", "IRentalService.GetRentalDetail")]
         public IResult Add(Car car) {
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        [CacheRemoveAspect("ICarService.Get")]
+        [CacheRemoveAspect("ICarService.Get", "IRentalService.GetAllRentalDetails", "IRentalService.GetRentalDetail")]
         public IResult Delete(Car car) {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
@@ -79,7 +79,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        [CacheRemoveAspect("ICarService.Get")]
+        [CacheRemoveAspect("ICarService.Get", "IRentalService.GetAllRentalDetails", "IRentalService.GetRentalDetail")]
         public IResult Update(Car car) {
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);

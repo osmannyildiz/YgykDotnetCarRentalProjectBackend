@@ -27,7 +27,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(ColorValidator))]
-        [CacheRemoveAspect("IColorService.Get")]
+        [CacheRemoveAspect("IColorService.Get", "ICarService.GetAllCarDetails", "ICarService.GetCarDetail")]
         public IResult Delete(Color color) {
             _colorDal.Delete(color);
             return new SuccessResult(Messages.ColorDeleted);
@@ -44,7 +44,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(ColorValidator))]
-        [CacheRemoveAspect("IColorService.Get")]
+        [CacheRemoveAspect("IColorService.Get", "ICarService.GetAllCarDetails", "ICarService.GetCarDetail")]
         public IResult Update(Color color) {
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);

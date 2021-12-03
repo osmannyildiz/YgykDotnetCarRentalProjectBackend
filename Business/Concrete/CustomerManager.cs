@@ -27,7 +27,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
-        [CacheRemoveAspect("ICustomerService.Get")]
+        [CacheRemoveAspect("ICustomerService.Get", "IRentalService.GetAllRentalDetails", "IRentalService.GetRentalDetail")]
         public IResult Delete(Customer customer) {
             _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
@@ -44,7 +44,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
-        [CacheRemoveAspect("ICustomerService.Get")]
+        [CacheRemoveAspect("ICustomerService.Get", "IRentalService.GetAllRentalDetails", "IRentalService.GetRentalDetail")]
         public IResult Update(Customer customer) {
             _customerDal.Update(customer);
             return new SuccessResult(Messages.CustomerUpdated);

@@ -26,7 +26,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(BrandValidator))]
-        [CacheRemoveAspect("IBrandService.Get")]
+        [CacheRemoveAspect("IBrandService.Get", "ICarService.GetAllCarDetails", "ICarService.GetCarDetail")]
         public IResult Delete(Brand brand) {
             _brandDal.Delete(brand);
             return new SuccessResult(Messages.BrandDeleted);
@@ -43,7 +43,7 @@ namespace Business.Concrete {
         }
 
         [ValidationAspect(typeof(BrandValidator))]
-        [CacheRemoveAspect("IBrandService.Get")]
+        [CacheRemoveAspect("IBrandService.Get", "ICarService.GetAllCarDetails", "ICarService.GetCarDetail")]
         public IResult Update(Brand brand) {
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
