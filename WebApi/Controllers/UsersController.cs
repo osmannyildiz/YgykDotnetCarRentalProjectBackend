@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Core.Entities.Concrete;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,26 @@ namespace WebApi.Controllers {
             }
         }
 
+        [HttpGet("getUserInfoByUserId")]
+        public IActionResult GetUserInfoByUserId(int userId) {
+            var result = _userService.GetUserInfoByUserId(userId);
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("getUserInfoByEmail")]
+        public IActionResult GetUserInfoByEmail(string email) {
+            var result = _userService.GetUserInfoByEmail(email);
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
         [HttpPost("add")]
         public IActionResult Add(User user) {
             var result = _userService.Add(user);
@@ -48,6 +69,16 @@ namespace WebApi.Controllers {
         [HttpPost("update")]
         public IActionResult Update(User user) {
             var result = _userService.Update(user);
+            if (result.Success) {
+                return Ok(result);
+            } else {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPost("updateUserInfo")]
+        public IActionResult UpdateUserInfo(UserInfoDto userInfoDto) {
+            var result = _userService.UpdateUserInfo(userInfoDto);
             if (result.Success) {
                 return Ok(result);
             } else {

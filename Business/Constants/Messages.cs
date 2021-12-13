@@ -25,6 +25,7 @@ namespace Business.Constants {
         public static string UserAdded = "Kullanıcı eklendi.";
         public static string UserDeleted = "Kullanıcı silindi.";
         public static string UserUpdated = "Kullanıcı güncellendi.";
+        public static string UserInfoUpdated = "Kullanıcı bilgileri güncellendi.";
         public static string PasswordDoesNotContainVarietyOfCharacters = "Şifre küçük harf, büyük harf ve rakam karakterlerinden en az birer tane içermelidir.";
         public static string CarImageAdded = "Araba resmi eklendi.";
         public static string CarImageDeleted = "Araba resmi silindi.";
@@ -37,7 +38,9 @@ namespace Business.Constants {
         public static string UserNotFound = "Kullanıcı bulunamadı.";
         public static string WrongPassword = "Şifre hatalı.";
         public static string UserWithEmailAlreadyExists = "Bu e-posta adresiyle kayıtlı bir kullanıcı halihazırda mevcut. Lütfen farklı bir e-posta adresi girin.";
+        public static string CustomerWithCompanyNameAlreadyExists = "Bu şirket ismiyle kayıtlı bir müşteri halihazırda mevcut. Lütfen farklı bir şirket ismi girin.";
         public static string AccessTokenCreated = "Erişim jetonu oluşturuldu.";
         public static string PaymentSuccessful = "Ödeme işlemi başarılı.";
+        public static string PasswordChanged = "Şifreniz değiştirildi.";
     }
 }

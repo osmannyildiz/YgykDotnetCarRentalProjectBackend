@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Aspects.Autofac.Auth;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
@@ -21,6 +22,7 @@ namespace Business.Concrete {
             _carImageDal = carImageDal;
         }
 
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarImageAddDtoValidator))]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImageAddDto carImageAddDto) {
@@ -42,6 +44,7 @@ namespace Business.Concrete {
             return new SuccessResult(Messages.CarImageAdded);
         }
 
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage) {
@@ -65,6 +68,7 @@ namespace Business.Concrete {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(ci => ci.Id == id));
         }
 
+        [SecuredOperation("admin")]
         //[ValidationAspect(typeof(CarImageUpdateDtoValidator))]
         [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(CarImageUpdateDto carImageUpdateDto) {

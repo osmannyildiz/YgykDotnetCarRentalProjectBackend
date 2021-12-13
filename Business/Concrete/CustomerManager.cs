@@ -39,6 +39,11 @@ namespace Business.Concrete {
         }
 
         [CacheAspect]
+        public IDataResult<Customer> GetByCompanyName(string companyName) {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CompanyName == companyName));
+        }
+
+        [CacheAspect]
         public IDataResult<Customer> GetById(int id) {
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id));
         }

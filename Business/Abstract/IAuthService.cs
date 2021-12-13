@@ -10,6 +10,7 @@ namespace Business.Abstract {
     public interface IAuthService {
         IDataResult<User> Register(UserRegisterDto userRegisterDto);
         IDataResult<User> Login(UserLoginDto userLoginDto);
+        IResult ChangePassword(int userId, string currentPassword, string newPassword);
         // FIXME Method name and purpose is confusing (it returns ErrorResult when a result is found)
         // Also shouldn't it be a part of IUserService rather than here? Or maybe as a CheckIf method?
         IResult UserWithEmailAlreadyExists(string email);

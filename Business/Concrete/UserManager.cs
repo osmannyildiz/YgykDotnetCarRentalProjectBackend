@@ -12,13 +12,17 @@ using System.Linq;
 using System.Text;
 using Business.Aspects.Autofac.Auth;
 using Core.Aspects.Autofac.Caching;
+using Entities.Dtos;
+using Entities.Concrete;
 
 namespace Business.Concrete {
     public class UserManager : IUserService {
         IUserDal _userDal;
+        ICustomerService _customerService;
 
-        public UserManager(IUserDal userDal) {
+        public UserManager(IUserDal userDal, ICustomerService customerService) {
             _userDal = userDal;
+            _customerService = customerService;
         }
 
         [ValidationAspect(typeof(UserValidator))]
@@ -26,6 +30,13 @@ namespace Business.Concrete {
         public IResult Add(User user) {
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
+        }
+
+        [ValidationAspect(typeof(UserValidator))]
+        [CacheRemoveAspect("IUserService.GetOperationClaim")]
+        public IResult AddOperationClaim(User user, string operationClaimName) {
+            _userDal.AddOperationClaim(user, operationClaimName);
+            return new SuccessResult();
         }
 
         [ValidationAspect(typeof(UserValidator))]
@@ -56,11 +67,37 @@ namespace Business.Concrete {
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetOperationClaims(user));
         }
 
+        [CacheAspect]
+        public IDataResult<UserInfoDto> GetUserInfoByEmail(string email) {
+            return new SuccessDataResult<UserInfoDto>(_userDal.GetUserInfo(u => u.Email == email));
+        }
+
+        [CacheAspect]
+        public IDataResult<UserInfoDto> GetUserInfoByUserId(int userId) {
+            return new SuccessDataResult<UserInfoDto>(_userDal.GetUserInfo(u => u.Id == userId));
+        }
+
         [ValidationAspect(typeof(UserValidator))]
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user) {
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
+        }
+
+        [ValidationAspect(typeof(UserValidator))]
+        [CacheRemoveAspect("IUserService.Get", "ICustomerService.Get")]
+        public IResult UpdateUserInfo(UserInfoDto userInfoDto) {
+            var user = _userDal.Get(u => u.Id == userInfoDto.Id);
+            user.FirstName = userInfoDto.FirstName;
+            user.LastName = userInfoDto.LastName;
+            user.Email = userInfoDto.Email;
+
+            var customer = _customerService.GetById(userInfoDto.CustomerId).Data;
+            customer.CompanyName = userInfoDto.CustomerCompanyName;
+
+            _userDal.Update(user);
+            _customerService.Update(customer);
+            return new SuccessResult(Messages.UserInfoUpdated);
         }
     }
 }

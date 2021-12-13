@@ -1,6 +1,7 @@
 ﻿using Business.Constants;
 using Castle.DynamicProxy;
 using Core.Extensions;
+using Core.Utilities.Auth;
 using Core.Utilities.Interceptors;
 using Core.Utilities.Ioc;
 using Microsoft.AspNetCore.Http;
@@ -20,15 +21,17 @@ namespace Business.Aspects.Autofac.Auth {
         }
 
         protected override void OnBefore(IInvocation invocation) {
-            var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+            var roleClaims = _httpContextAccessor.HttpContext.User.GetRoleClaims();
             foreach (var role in _roles) {
                 if (roleClaims.Contains(role)) {
                     return;
                 }
             }
-            throw new Exception(Messages.AuthorizationDenied);
+            throw new AuthorizationException(Messages.AuthorizationDenied);
 
-            // TODO Ensure HTTP status 401 for unauthenticated and 403 for unauthorized
+            // TODO Ensure HTTP status 401 for both unauthenticated and unauthorized. See:
+            // - https://stackoverflow.com/questions/3547474/correct-http-status-code-when-resource-is-available-but-not-accessible-because-o
+            // - https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.2
         }
     }
 }
