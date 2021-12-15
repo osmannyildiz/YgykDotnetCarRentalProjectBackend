@@ -35,11 +35,15 @@ namespace Business.DependencyResolvers.Autofac {
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
 
+            builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>().SingleInstance();
+            builder.RegisterType<CreditCardManager>().As<ICreditCardService>().SingleInstance();
+
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
 
             builder.RegisterType<JwtTokenHelper>().As<ITokenHelper>();
             
             builder.RegisterType<PaymentService>().As<IPaymentService>();
+            builder.RegisterType<FindexService>().As<IFindexService>();
 
             // Taken from https://github.com/engindemirog/NetCoreBackend/blob/master/Business/DependencyResolvers/Autofac/AutofacBusinessModule.cs
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

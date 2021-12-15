@@ -17,9 +17,13 @@ using System.Text;
 namespace Business.Concrete {
     public class RentalManager : IRentalService {
         IRentalDal _rentalDal;
+        IFindexService _findexService;
+        ICarService _carService;
 
-        public RentalManager(IRentalDal rentalDal) {
+        public RentalManager(IRentalDal rentalDal, IFindexService findexService, ICarService carService) {
             _rentalDal = rentalDal;
+            _findexService = findexService;
+            _carService = carService;
         }
 
         [SecuredOperation("user,admin")]
@@ -28,7 +32,8 @@ namespace Business.Concrete {
         public IResult Add(Rental rental) {
             var errorResult = BusinessEngine.Run(
                 CheckIfCarAlreadyRentedInSpecifiedDate(rental),
-                CheckIfRentalReturnDateIsBeforeRentDate(rental)
+                CheckIfRentalReturnDateIsBeforeRentDate(rental),
+                CheckIfCustomerFindexScoreIsInsufficient(rental)
             );
             if (errorResult != null) {
                 return errorResult;
@@ -95,6 +100,14 @@ namespace Business.Concrete {
         private IResult CheckIfRentalReturnDateIsBeforeRentDate(Rental rental) {
             if (rental.ReturnDate.Subtract(rental.RentDate).TotalDays < 0) {
                 return new ErrorResult(Messages.RentalReturnDateIsBeforeRentDate);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCustomerFindexScoreIsInsufficient(Rental rental) {
+            var car = _carService.GetById(rental.CarId).Data;
+            if (_findexService.GetFindexScore(rental.CustomerId).Data < car.MinimumFindexScore) {
+                return new ErrorResult(Messages.CustomerFindexScoreIsInsufficient);
             }
             return new SuccessResult();
         }

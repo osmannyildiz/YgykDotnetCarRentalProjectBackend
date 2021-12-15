@@ -41,6 +41,11 @@ namespace Business.Constants {
         public static string CustomerWithCompanyNameAlreadyExists = "Bu şirket ismiyle kayıtlı bir müşteri halihazırda mevcut. Lütfen farklı bir şirket ismi girin.";
         public static string AccessTokenCreated = "Erişim jetonu oluşturuldu.";
         public static string PaymentSuccessful = "Ödeme işlemi başarılı.";
+        public static string PaymentFailed = "Ödeme işlemi başarısız oldu.";
         public static string PasswordChanged = "Şifreniz değiştirildi.";
+        public static string CustomerFindexScoreIsInsufficient = "Maalesef findex puanınız bu aracı kiralamak için yetersiz. Lütfen daha düşük ücretli bir aracı kiralayın.";
+        public static string CreditCardAdded = "Kredi kartı eklendi.";
+        public static string CreditCardDeleted = "Kredi kartı silindi.";
+        public static string CreditCardUpdated = "Kredi kartı güncellendi.";
     }
 }

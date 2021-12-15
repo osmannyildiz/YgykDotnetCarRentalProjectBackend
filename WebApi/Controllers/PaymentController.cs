@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,8 +18,8 @@ namespace WebApi.Controllers {
         }
 
         [HttpPost("process")]
-        public IActionResult Process([FromForm] string creditCardNumber, [FromForm] string creditCardExpiry, [FromForm] string creditCardCvc) {
-            var result = _paymentService.Process(creditCardNumber, creditCardExpiry, creditCardCvc);
+        public IActionResult Process(PaymentFormDataDto formDataDto) {
+            var result = _paymentService.Process(formDataDto);
             if (result.Success) {
                 return Ok(result);
             } else {

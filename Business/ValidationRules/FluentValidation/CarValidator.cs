@@ -21,6 +21,9 @@ namespace Business.ValidationRules.FluentValidation {
 
             RuleFor(c => c.DailyPrice).NotEmpty();
             RuleFor(c => c.DailyPrice).InclusiveBetween(100, 1000000);
+
+            RuleFor(c => c.MinimumFindexScore).NotEmpty();
+            RuleFor(c => c.MinimumFindexScore).InclusiveBetween(1, 1900);
         }
     }
 }
